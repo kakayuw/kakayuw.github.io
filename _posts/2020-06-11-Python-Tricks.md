@@ -5,7 +5,7 @@ subtitle: 'Some useful and interesting python usage.'
 date: 2020-06-16
 author: Hang Yu
 categories: Python
-cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-banner.png'
+cover: '/assets/img/python.jpg'
 tags: Python
 ---
 ### About Basic Types
