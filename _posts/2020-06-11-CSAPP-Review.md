@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 'Hang Yu'
-subtitle: 'Resume'
-date: 2020-06-11
+title: 'Review to CSAPP'
+subtitle: 'Personal reading notes and summary about this literature.'
+date: 2020-06-15
 author: Hang Yu
-categories: Intro
+categories: Notes
 cover: 'http://on2171g4d.bkt.clouddn.com/jekyll-banner.png'
-tags: profile
+tags: Notes
 ---
 ### It' s an review to CSAPP
 
