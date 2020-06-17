@@ -35,6 +35,7 @@ The fourth person goes to city B for a cost of 20.
 The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interviewing in each city.
 ```
 #### Strategy
+
 |Approach|Time Complexity|Space Complexity|
 |:--:|:--:|:--:|
 |**Greedy**|$O(NlogN)$|$O(N)$|
