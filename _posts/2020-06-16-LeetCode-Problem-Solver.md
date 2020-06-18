@@ -10,6 +10,72 @@ tags: Leetcode
 ---
 ## Dynamic Programmings
 Fantastic DP problems.
+### 518. Coin Change 2
+<span style="border: 1px white;background-color:#F39C12;border-radius: 10px;padding: 5px; color: white; margin:5px">Medium</span><span style="border: 1px white;background-color:#884EA0;border-radius: 10px;padding: 5px; color: white; margin:5px">DP</span><span style="border: 1px white;background-color:#3498DB;border-radius: 10px;padding: 5px; color: white; margin:5px">Search</span>
+#### Description
+You are given coins of different denominations and a total amount of money. Write a function to compute the number of combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
+
+
+#### Example 1
+```
+Input: amount = 5, coins = [1, 2, 5]
+Output: 4
+Explanation: there are four ways to make up the amount:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+```
+#### Example 2
+```
+Input: amount = 3, coins = [2]
+Output: 0
+Explanation: the amount of 3 cannot be made up just with coins of 2.
+```
+#### Example 3
+```
+Input: amount = 10, coins = [10] 
+Output: 1
+```
+#### Strategy
+
+Let $M \leftarrow amount$, $N \leftarrow coins$, then
+##### Approach 1: Search
+
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**DFS**|$O(M^N)$|$O(M^N)$|
+
+##### Intuition
+Let's first sort the coins. Then we start from an initial state to search for the whole state. In each round, we update our current states by trying to add each coin into the sum, and we know about at least after $k$ rounds, we could gererate all  possible sums that consistute the amount, where $k = \frac{amount}{min(coins)}$.
+
+##### Code
+The code is self-explanatory. I use a dictionary to store all possible states, where key is the sum and value is set of the all feasible combinations.
+```
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        if not coins: return int(not amount)
+        coins = sorted(coins)
+        dic = {0:set([tuple([0] * len(coins))])}
+        for i in range(amount // min(coins)):
+            newdic = {}
+            for k, comps in dic.items():
+                for c in comps:
+                    for idx, w in enumerate(coins):
+                        if w + k > amount: continue
+                        newcomp = list(c)
+                        newcomp[idx] += 1
+                        if w+k not in newdic:
+                            newdic[w+k] = set([tuple(newcomp)])
+                        else:
+                            newdic[w+k].add(tuple(newcomp))
+            # update dic
+            for k, v in newdic.items():
+                if k not in dic: dic[k] = v
+                else:   dic[k] |= v 
+        return len(dic[amount]) if amount in dic else 0
+```
+Unfortrunately, this approach would cause TLE, although its result is correct and intuitive and clear to view.
 
 ----
 ## Array 

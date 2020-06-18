@@ -16,3 +16,8 @@ tags: Python
 
 A basic usage of `if` expression is `1 if True else 0`, however we could use builtin `int()`  function to convert a boolean value to integer. `int(True)` would return `1` and `int(False)` would return `0`. This expression could shorten the lenght of code and be more intuitive. For example, we could see `int(str1 == str2)` in counting identical strings.
 
+2. Converting `int` to `1` or `0`
+
+Similarly, we could just convert an integer to a boolean variable and then convert it back to int. For example, instead of `1 if x != 0 else 0` we could write `int(not x)`.
+
+
