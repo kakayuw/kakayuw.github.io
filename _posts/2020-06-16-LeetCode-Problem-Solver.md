@@ -10,6 +10,56 @@ tags: Leetcode
 ---
 ## Dynamic Programmings
 Fantastic DP problems.
+### 1029 Two City Scheduling
+<span style="border: 1px white;background-color:#F39C12;border-radius: 10px;padding: 5px; color: white; margin:5px">Medium</span><span style="border: 1px white;background-color:#884EA0;border-radius: 10px;padding: 5px; color: white; margin:5px">DP</span>
+#### Description
+Given a set of **distinct** positive integers, find the largest subset such that every pair $(S_i, S_j)$ of elements in this subset satisfies:
+
+$S_i % S_j = 0 or S_j % S_i = 0$
+
+If there are multiple solutions, return any subset is fine.
+
+
+#### Example
+```
+Input: [1,2,3]
+Output: [1,2] (of course, [1,3] will also be ok)
+
+Input: [1,2,4,8]
+Output: [1,2,4,8]
+```
+#### Strategy
+
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**Greedy**|$O(NlogN)$|$O(N)$|
+
+#### Intuition
+We should first sort the given array, so that we could use the mathematical corollaries to simplify the solution.
+
+Then we define a function $EDS(X_i)$, which gives the largest subset that ends with the number $X_i$. E.g., in ${2,4,7,8}$, $EDS(4) = {2,4}$, $EDS(7) = {7}$. Then our target function is $LDS([X_1, X_2, ... X_n])$, now we have 
+
+$$LDS([X_1, X_2, ... X_n]) = max(\forall EDS(X_i)), 1 \leq i \leq n $$
+
+#### Code
+The code is self-explanatory and pythonic.
+```
+class Solution(object):
+    def largestDivisibleSubset(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        # The container that holds all intermediate solutions.
+        # key: the largest element in a valid subset.
+        subsets = {-1: set()}
+        
+        for num in sorted(nums):
+            subsets[num] = max([subsets[k] for k in subsets if num % k == 0], key=len) | {num}
+        
+        return list(max(subsets.values(), key=len))
+```
+
 ### 518. Coin Change 2
 <span style="border: 1px white;background-color:#F39C12;border-radius: 10px;padding: 5px; color: white; margin:5px">Medium</span><span style="border: 1px white;background-color:#884EA0;border-radius: 10px;padding: 5px; color: white; margin:5px">DP</span><span style="border: 1px white;background-color:#3498DB;border-radius: 10px;padding: 5px; color: white; margin:5px">Search</span>
 #### Description
