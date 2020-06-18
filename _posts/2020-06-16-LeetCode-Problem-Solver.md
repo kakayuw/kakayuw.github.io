@@ -5,7 +5,7 @@ subtitle: 'Record some interesting leetcode solutions and thoughts.'
 date: 2020-06-16
 author: Hang Yu
 categories: Leetcode
-cover: 'https://github.com/kakayuw/kakayuw.github.io/blob/master/assets/img/leetcode.jpg'
+cover: 'https://media-exp1.licdn.com/dms/image/C4E1BAQGauK73E2uUUA/company-background_10000/0?e=2159024400&v=beta&t=kL2A3CixRJz2ztqf_zFu2OP6JCF3RqR7OzvE7R6xbV8'
 tags: Leetcode
 ---
 ## Dynamic Programmings
