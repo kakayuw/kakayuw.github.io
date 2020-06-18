@@ -10,7 +10,7 @@ tags: Leetcode
 ---
 ## Dynamic Programmings
 Fantastic DP problems.
-### 1029 Two City Scheduling
+### 368. Largest Divisible Subset 
 <span style="border: 1px white;background-color:#F39C12;border-radius: 10px;padding: 5px; color: white; margin:5px">Medium</span><span style="border: 1px white;background-color:#884EA0;border-radius: 10px;padding: 5px; color: white; margin:5px">DP</span>
 #### Description
 Given a set of **distinct** positive integers, find the largest subset such that every pair $(S_i, S_j)$ of elements in this subset satisfies:
@@ -32,7 +32,7 @@ Output: [1,2,4,8]
 
 |Approach|Time Complexity|Space Complexity|
 |:--:|:--:|:--:|
-|**Greedy**|$O(NlogN)$|$O(N)$|
+|**DP**|$O(N^2)$|$O(N^2)$|
 
 #### Intuition
 We should first sort the given array, so that we could use the mathematical corollaries to simplify the solution.
