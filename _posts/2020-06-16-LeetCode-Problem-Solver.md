@@ -77,6 +77,45 @@ class Solution:
 ```
 Unfortrunately, this approach would cause TLE, although its result is correct and intuitive and clear to view.
 
+##### Approach 2: DP
+
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**DP**|$O(MN)$|$O(M)$|
+
+##### Intuition
+
+Add coins one-by-one, starting from base case 'no coins'.
+
+For each added coin, compute recursively the number of combinations for each amount of money from 0 tot `amount`.
+
+Algo:
+
+- Initiate number of combinations array with the base case 'no coins': `dp[0] = 1` and all the rest = 0.
+
+- Loop over all coins:
+    - for each coin, loop over all amounts from 0 to `amount`:
+        - for each amount `x`, computer the number of combinations: `dp[x] += dp[x-coin]`.
+
+
+##### Code
+The code is self-explanatory. 
+```
+class Solution:
+    def change(self, amount: int, coins: List[int]) -> int:
+        if not coins: return int(not amount)
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+        for coin in coins:
+            for x in range(coin, amount+1):
+                dp[x] += dp[x-coin]
+        return dp[amount]
+```
+This approach is clear and excellent. One key clue is that we should consider the dp recursion from the point of each coin. Another is that loop coin enumeration first and loop amount secondly.
+
+However, it's not a intuitive dp problem, for the dp recurrence depends on itself and it's hard to complain.
+
+
 ----
 ## Array 
 Array related optimization problems.
