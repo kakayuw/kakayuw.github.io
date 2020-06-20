@@ -20,4 +20,7 @@ A basic usage of `if` expression is `1 if True else 0`, however we could use bui
 
 Similarly, we could just convert an integer to a boolean variable and then convert it back to int. For example, instead of `1 if x != 0 else 0` we could write `int(not x)`.
 
+3. Converting an integer to binary string
+
+We could use builtin `bin()` to easily convert any integer into a binary string, which starts from `0x`. If we only need the string without any prefix, `bin(string)[2:]` would be effect. There is still other things to mention, like converting a negative integer into its binary form. It would not direct give us wanted value under the 32bit or 64bit environment, it would add a neg sign, e.g. `-0xb`, which will disapoint that intend to take advantage of this trick.
 
