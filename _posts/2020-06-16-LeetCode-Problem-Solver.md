@@ -8,6 +8,228 @@ categories: Leetcode
 cover: 'https://media-exp1.licdn.com/dms/image/C4E1BAQGauK73E2uUUA/company-background_10000/0?e=2159024400&v=beta&t=kL2A3CixRJz2ztqf_zFu2OP6JCF3RqR7OzvE7R6xbV8'
 tags: Leetcode
 ---
+## String 
+Big mess string problems! Let's solve them here!
+
+### 1044. Longest Duplicate Substring / Longest Repeated Substring
+
+<span style="border: 1px white;background-color:Crimson;border-radius: 10px;padding: 5px; color: white; margin:5px">Hard</span><span style="border: 1px white;background-color:darkgreen;border-radius: 10px;padding: 5px; color: white; margin:5px">Sorting</span><span style="border: 1px white;background-color:peru;border-radius: 10px;padding: 5px; color: white; margin:5px">Hashing</span>
+
+Given a string S, consider all duplicated substrings: (contiguous) substrings of S that occur 2 or more times.  (The occurrences may overlap.)
+
+Return any duplicated substring that has the longest possible length.  (If S does not have a duplicated substring, the answer is "".)
+
+#### Example
+```
+Input: "banana"
+Output: "ana"
+
+Input: "abcd"
+Output: ""
+```
+
+#### Strategy1: Sorting Prefix
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**Soring Prefix**|$O(N\log N)$|$O(N^2)$|
+
+#### thought
+|0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|a|a|c|a|a|g|t|t|t|a|c|a|a|g|c|
+
+1. Form suffix strings
+
+    *0* &nbsp;&nbsp; a a c a a g t t t a c a a g c 
+    
+    *1* &nbsp;&nbsp; a c a a g t t t a c a a g c 
+    
+    *2* &nbsp;&nbsp; c a a g t t t a c a a g c 
+    
+    *3* &nbsp;&nbsp; a a g t t t a c a a g c 
+
+    *4* &nbsp;&nbsp; a g t t t a c a a g c 
+
+    *5* &nbsp;&nbsp; g t t t a c a a g c 
+    
+    *6* &nbsp;&nbsp; t t t a c a a g c 
+
+    *7* &nbsp;&nbsp; t t a c a a g c 
+
+    *8* &nbsp;&nbsp; t a c a a g c 
+
+    *9* &nbsp;&nbsp; a c a a g c 
+
+    *10* &nbsp;&nbsp;c a a g c 
+    
+    *11* &nbsp;&nbsp;a a g c 
+    
+    *12* &nbsp;&nbsp;a g c 
+    
+    *13* &nbsp;&nbsp;g c 
+    
+    *14* &nbsp;&nbsp;c 
+
+2. Sort suffix stirngs
+
+    *0* &nbsp;&nbsp; a a c a a g t t t a c a a g c 
+    
+    *11* &nbsp;&nbsp;a a g c 
+
+    *3* &nbsp;&nbsp; a a g t t t a c a a g c 
+
+    *9* &nbsp;&nbsp; a c a a g c 
+
+    *1* &nbsp;&nbsp; a c a a g t t t a c a a g c 
+
+    *12* &nbsp;&nbsp;a g c 
+
+    *4* &nbsp;&nbsp; a g t t t a c a a g c 
+    
+    *14* &nbsp;&nbsp;c 
+
+    *10* &nbsp;&nbsp;c a a g c 
+
+    *2* &nbsp;&nbsp; c a a g t t t a c a a g c 
+
+    *13* &nbsp;&nbsp;g c 
+
+    *5* &nbsp;&nbsp; g t t t a c a a g c 
+
+    *8* &nbsp;&nbsp; t a c a a g c 
+
+    *7* &nbsp;&nbsp; t t a c a a g c 
+
+    *6* &nbsp;&nbsp; t t t a c a a g c 
+
+3. Find longest Longest Common Prefix among adjacent entries.
+
+#### Code
+```Java
+public static String lrs(String s) {
+    int N = s.length();
+    String[] suffixes = new String[N];
+    for (int i = 0; i < N; i++)
+        suffixes[i] = s.substring(i, N);
+    
+    Merge.sort(suffixes);
+
+    String lrs = "";
+    for (int i = 0; i < N-1; i++) {
+        String x = lcp(suffixes[i], suffixes[i+1]);
+        if (x.length() > lrs.length()) lrs = x;
+    }
+}
+```
+Before 2012, Java use address pointers to as implementation of `substring`. However, after 2012 they change the implementation to copy to a new string, which cause the OOM.
+
+Lesson: trust algorithm, not system.
+
+#### Strategy2
+**Rabin-Karp** + **Binary Search**
+
+[see here!](https://leetcode.com/problems/longest-duplicate-substring/solution/)
+    
+
+    
+
+
+
+## Bit Manipulation
+Using bit manipulation tricks to optimize your algorithm (.
+### 137. Single Number II
+<span style="border: 1px white;background-color:#F39C12;border-radius: 10px;padding: 5px; color: white; margin:5px">Medium</span><span style="border: 1px white;background-color:Turquoise;border-radius: 10px;padding: 5px; color: white; margin:5px">Bit Manipulation</span>
+
+#### Description
+Given a non-empty array of integers, every element appears three times except for one, which appears exactly once. Find that single one.
+
+Note:
+
+Your algorithm should have a linear runtime complexity. Could you implement it without using extra memory?
+
+#### Example
+```
+Input: [2,2,3,2]
+Output: 3
+
+Input: [0,1,0,1,0,1,99]
+Output: 99
+```
+
+#### Strategy 1: HashSet
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**Set**|$O(N)$|$O(N)$|
+
+#### Intuition
+$$3(a+b+c)-(a+a+a+b+b+b+c+c+c)=2c$$
+
+#### Code
+```python
+class Solution:
+    def singleNumber(self, nums):
+        return (3 * sum(set(nums)) - sum(nums)) // 2
+```
+
+#### Strategy 2: HashMap
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**HashMap**|$O(N)$|$O(N)$|
+
+#### Intuition
+Let's iterate over the input array to count the frequency of each number, and then return an element with a frequency 1.
+
+#### Code
+```python
+from collections import Counter
+class Solution:
+    def singleNumber(self, nums):
+        hashmap = Counter(nums)
+            
+        for k in hashmap.keys():
+            if hashmap[k] == 1:
+                return k
+```
+
+#### Strategy 3: Bitwise Operator
+|Approach|Time Complexity|Space Complexity|
+|:--:|:--:|:--:|
+|**Bitwise Op**|$O(N)$|$O(1)$|
+
+#### Intuition
+To separate number that appears once from a number that appears three times let's use two bitmasks instead of one: `seen_once` and `seen_twice`.
+
+The idea is to
+
+- change `seen_once` only if `seen_twice` is unchanged
+
+- change `seen_twice` only if `seen_once` is unchanged
+
+#### Code
+```python
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        seen_once = seen_twice = 0
+        
+        for num in nums:
+            # first appearance: 
+            # add num to seen_once 
+            # don't add to seen_twice because of presence in seen_once
+            
+            # second appearance: 
+            # remove num from seen_once 
+            # add num to seen_twice
+            
+            # third appearance: 
+            # don't add to seen_once because of presence in seen_twice
+            # remove num from seen_twice
+            seen_once = ~seen_twice & (seen_once ^ num)
+            seen_twice = ~seen_once & (seen_twice ^ num)
+
+        return seen_once
+```
+The key idea is to use two bitmask to present the appearance of each num, and three-time member would be erased.
+
 ## Dynamic Programmings
 Fantastic DP problems.
 ### 368. Largest Divisible Subset 
@@ -43,7 +265,7 @@ $$LDS([X_1, X_2, ... X_n]) = max(\forall EDS(X_i)), 1 \leq i \leq n $$
 
 #### Code
 The code is self-explanatory and pythonic.
-```
+```python
 class Solution(object):
     def largestDivisibleSubset(self, nums):
         """
@@ -101,7 +323,7 @@ Let's first sort the coins. Then we start from an initial state to search for th
 
 ##### Code
 The code is self-explanatory. I use a dictionary to store all possible states, where key is the sum and value is set of the all feasible combinations.
-```
+```python
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         if not coins: return int(not amount)
@@ -150,7 +372,7 @@ Algo:
 
 ##### Code
 The code is self-explanatory. 
-```
+```python
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         if not coins: return int(not amount)
@@ -199,7 +421,7 @@ The total minimum cost is 10 + 30 + 50 + 20 = 110 to have half the people interv
 For each person, he has only two choices: sent to city A or city B. Thus, each person could generate a gain - the difference between the two choices. Then in accordance with the greedy strategy, we sort the cost array, pick the local optimal choice until one city cannot accormodate more person. At last we collect the remains not counted in our approach.
 #### Code
 The code is self-explanatory.
-```
+```python
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
         costs = sorted(costs, key=lambda x: abs(x[0]-x[1]), reverse=True)
